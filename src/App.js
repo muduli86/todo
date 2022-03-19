@@ -1,12 +1,16 @@
 import NavBar from "./components/NavBar/NavBar.jsx";
-import Home from "./components/Home/Home.jsx";
+import Home from "./components/Home/Home.js";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <Home />
-    </div>
+    <>
+      <CssBaseline />
+      <div className='App'>
+        <NavBar />
+        <Home />
+      </div>
+    </>
   );
 }
 
