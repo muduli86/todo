@@ -1,18 +1,23 @@
-import * as React from "react";
+import React from "react";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CalendarPicker from "@mui/lab/CalendarPicker";
-import { DateProvider } from "../../context/DateProvider";
-import moment from "moment";
 
-export default function Calender() {
+export default function Calender({ parentCallback }) {
   const [date, setDate] = React.useState(new Date());
 
+  const onTrigger = (newDate) => {
+    setDate(newDate);
+    parentCallback(newDate);
+  };
   return (
-    <DateProvider value={moment(date).format("MM-DD-YYYY")}>
+    <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <CalendarPicker date={date} onChange={(newDate) => setDate(newDate)} />
+        <CalendarPicker
+          date={date}
+          onChange={(newDate) => onTrigger(newDate)}
+        />
       </LocalizationProvider>
-    </DateProvider>
+    </>
   );
 }

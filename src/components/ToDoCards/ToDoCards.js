@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useGetTodoItems } from "../../queries";
 import ToDoCard from "../ToDoCard/ToDoCard";
 import { Box, Card, CardContent, Typography, Grid } from "@mui/material";
-import { useDate } from "../../context/DateProvider";
+import { useDateContext } from "../../context/DateProvider";
 
 const Data = ({ data }) => {
-  console.log(data);
   return (
     <Grid container>
       {data.map((item) => {
@@ -20,9 +19,10 @@ const Data = ({ data }) => {
 };
 
 const ToDoCards = () => {
-  console.log("simon" + useDate);
+  const selectedDate = useDateContext();
+
   const { isLoading, isSuccess, data, isError, error } =
-    useGetTodoItems("data");
+    useGetTodoItems(selectedDate);
 
   return (
     <>
@@ -31,11 +31,11 @@ const ToDoCards = () => {
         {isError && <h1>Error + {error} </h1>}
         {isSuccess && <Data data={data} />}
         <Box sx={{ maxWidth: 120, margin: 2 }}>
-          <Card variant='outlined'>
+          <Card variant="outlined">
             <CardContent>
               <Typography
                 sx={{ fontSize: 14 }}
-                color='text.secondary'
+                color="text.secondary"
                 gutterBottom
               >
                 add new
