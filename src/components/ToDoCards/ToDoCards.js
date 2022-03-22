@@ -6,43 +6,46 @@ import { useDateContext } from "../../context/DateProvider";
 
 const Data = ({ data }) => {
   return (
-    <Grid container>
+    <>
       {data.map((item) => {
         return (
-          <Grid item xs={12} md={3} key={item.id}>
+          <Grid item xs={6} md={3} key={item.id}>
             <ToDoCard item={item} />
           </Grid>
         );
       })}
-    </Grid>
+    </>
   );
 };
 
 const ToDoCards = () => {
-  const selectedDate = useDateContext();
+  const dateContext = useDateContext();
 
-  const { isLoading, isSuccess, data, isError, error } =
-    useGetTodoItems(selectedDate);
+  const { isLoading, isSuccess, data, isError, error } = useGetTodoItems(
+    dateContext.date
+  );
 
   return (
     <>
-      <Card sx={{ minWidth: 600, margin: "10px" }}>
-        {isLoading && <h1>Loading</h1>}
-        {isError && <h1>Error + {error} </h1>}
-        {isSuccess && <Data data={data} />}
-        <Box sx={{ maxWidth: 120, margin: 2 }}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                add new
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box>
+      <Card sx={{ margin: 2 }}>
+        <Grid container>
+          {isLoading && <h1>Loading</h1>}
+          {isError && <h1>Error + {error} </h1>}
+          {isSuccess && <Data data={data} />}
+          <Box sx={{ minWidth: 150, margin: 1 }}>
+            <Card variant='outlined'>
+              <CardContent>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  add new
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        </Grid>
       </Card>
     </>
   );

@@ -9,17 +9,19 @@ const Home = () => {
   const [date, setDate] = React.useState(
     moment(new Date()).format("MM-DD-YYYY")
   );
+
   const handleCallback = (childData) => {
     setDate(moment(childData).format("MM-DD-YYYY"));
   };
   return (
-    <DateProvider value={date}>
-      <Grid container sx={{ display: "flex", margin: "100px 10px" }}>
+    <DateProvider>
+      <Grid container sx={{ display: "flex", margin: "10px 5px" }}>
+        <Grid item xs={12} md={3}>
+          {/* <Calender parentCallback={handleCallback} /> */}
+          <Calender />
+        </Grid>
         <Grid item xs={12} md={7}>
           <ToDoCards />
-        </Grid>
-        <Grid item xs={12} md={5}>
-          <Calender parentCallback={handleCallback} />
         </Grid>
       </Grid>
     </DateProvider>
@@ -27,3 +29,5 @@ const Home = () => {
 };
 
 export default Home;
+
+//https://github.com/johnpaulchandy/toDoPlanner

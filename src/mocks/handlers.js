@@ -16,6 +16,11 @@ const todoItems = [
     description: "Cooking",
     status: "Completed",
   },
+  {
+    id: "s48c35e4-bbfd-485f-a537-49d14dff7870",
+    description: "Cooking",
+    status: "In-Progress",
+  },
 ];
 
 export const handlers = [
