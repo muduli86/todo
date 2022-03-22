@@ -21,13 +21,3 @@ const Colors = {
   white: "#fff",
   black: "#000",
 };
-const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-const theme =  createTheme({
-  palette: {
-    mode: prefersDarkMode ? 'dark' : 'light',
-  },
-}),
-[prefersDarkMode],
-);
-
-export default theme;

@@ -2,7 +2,7 @@ import React from "react";
 import { useGetTodoItems } from "../../queries";
 import ToDoCard from "../ToDoCard/ToDoCard";
 import { Box, Card, CardContent, Typography, Grid } from "@mui/material";
-import { useDateContext } from "../../context/DateProvider";
+import { useTodoContext } from "../../context/TodoProvider";
 
 const Data = ({ data }) => {
   return (
@@ -19,10 +19,10 @@ const Data = ({ data }) => {
 };
 
 const ToDoCards = () => {
-  const dateContext = useDateContext();
+  const { state } = useTodoContext();
 
   const { isLoading, isSuccess, data, isError, error } = useGetTodoItems(
-    dateContext.date
+    state.selectedDate
   );
 
   return (
@@ -33,11 +33,11 @@ const ToDoCards = () => {
           {isError && <h1>Error + {error} </h1>}
           {isSuccess && <Data data={data} />}
           <Box sx={{ minWidth: 150, margin: 1 }}>
-            <Card variant='outlined'>
+            <Card variant="outlined">
               <CardContent>
                 <Typography
                   sx={{ fontSize: 14 }}
-                  color='text.secondary'
+                  color="text.secondary"
                   gutterBottom
                 >
                   add new

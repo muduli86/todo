@@ -1,34 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import CalendarPicker from "@mui/lab/CalendarPicker";
-import { useDateContext } from "../../context/DateProvider";
+import { useTodoContext } from "../../context/TodoProvider";
 
-export default function Calender({ parentCallback }) {
-  const [date, setDate] = React.useState(new Date());
-  const dateContext = useDateContext();
+export default function Calender() {
+  const [date, setDate] = useState(new Date());
+  const { dispatch } = useTodoContext();
 
-  const onTrigger = (newDate) => {
+  const onDateChange = (newDate) => {
     setDate(newDate);
-    parentCallback(newDate);
-  };
-
-  const changeHandler = (newDate) => {
-    setDate(newDate);
-    console.log(dateContext);
-    dateContext.setDate(date);
+    dispatch({ type: "SETDATE", payload: newDate });
   };
 
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        {/* <CalendarPicker
-          date={date}
-          onChange={(newDate) => onTrigger(newDate)}
-        /> */}
         <CalendarPicker
           date={date}
-          onChange={(newDate) => changeHandler(newDate)}
+          onChange={(newDate) => onDateChange(newDate)}
         />
       </LocalizationProvider>
     </>
