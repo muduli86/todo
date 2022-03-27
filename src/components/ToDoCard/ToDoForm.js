@@ -5,9 +5,20 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import moment from "moment";
 
 const ToDoForm = (props) => {
   const [openForm, setOpenForm] = useState(props.openForm);
+  const [value, setValue] = React.useState(
+    moment(new Date(props.item.dueDate)).format("MM-DD-YYYY")
+  );
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
 
   const handleClose = () => {
     setOpenForm(false);
@@ -16,18 +27,18 @@ const ToDoForm = (props) => {
     <Dialog open={openForm} onClose={handleClose}>
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>
-        <TextField
-          autoFocus
-          id='outlined-helperText'
-          margin='dense'
-          fullWidth
-          label={props.formItems[1]}
-          defaultValue={props.item.dueDate}
-          helperText={props.item.dueDate}
-          sx={{
-            width: "20ch",
-          }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DesktopDatePicker
+            autoFocus
+            id='outlined-helperText'
+            fullWidth
+            label={props.formItems[1]}
+            inputFormat='MM/dd/yyyy'
+            value={value}
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
 
         <TextField
           margin='dense'
