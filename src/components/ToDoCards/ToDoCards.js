@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetTodoItems } from "../../queries";
 import ToDoCard from "../ToDoCard/ToDoCard";
 import { Box, Card, CardContent, Typography, Grid } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useTodoContext } from "../../context/TodoProvider";
+import ToDoForm from "../ToDoCard/ToDoForm";
 
 const Data = ({ data }) => {
   return (
@@ -25,6 +28,18 @@ const ToDoCards = () => {
     state.selectedDate
   );
 
+  const [addForm, setAddForm] = useState(false);
+
+  const addClickHandler = () => {
+    setAddForm(true);
+  };
+  const formItems = ["Description", "Due Date"];
+
+  const newItem = {
+    description: "",
+    dueDate: state.selectedDate,
+  };
+
   return (
     <>
       <Card sx={{ margin: 2 }}>
@@ -35,18 +50,23 @@ const ToDoCards = () => {
           <Box sx={{ minWidth: 150, margin: 1 }}>
             <Card variant="outlined">
               <CardContent>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  add new
-                </Typography>
+                <IconButton aria-label="add" onClick={addClickHandler}>
+                  <AddCircleOutlineIcon />
+                </IconButton>
               </CardContent>
             </Card>
           </Box>
         </Grid>
       </Card>
+      {addForm && (
+        <ToDoForm
+          title="Add"
+          item={newItem}
+          openForm={addForm}
+          formItems={formItems}
+          setOpenForm={setAddForm}
+        />
+      )}
     </>
   );
 };

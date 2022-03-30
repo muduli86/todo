@@ -17,24 +17,24 @@ const ToDoCard = ({ item }) => {
     console.log("delete");
   };
 
-  const formItems = ["Description", "DueDate"];
+  const formItems = ["Description", "Due Date"];
 
   return (
     <>
       <Box sx={{ minWidth: 150, margin: 1 }}>
-        <Card variant='outlined'>
+        <Card variant="outlined">
           <CardContent>
             <Typography
               sx={{ fontSize: 14 }}
-              color='text.secondary'
+              color="text.secondary"
               gutterBottom
             >
               {item.description}
             </Typography>
-            <IconButton aria-label='edit' onClick={editClickHandler}>
+            <IconButton aria-label="edit" onClick={editClickHandler}>
               <EditIcon />
             </IconButton>
-            <IconButton aria-label='delete' onClick={deleteClickHandler}>
+            <IconButton aria-label="delete" onClick={deleteClickHandler}>
               <DeleteIcon />
             </IconButton>
           </CardContent>
@@ -42,10 +42,11 @@ const ToDoCard = ({ item }) => {
       </Box>
       {editForm && (
         <ToDoForm
-          title='Edit'
+          title="Edit"
           item={item}
           openForm={editForm}
           formItems={formItems}
+          setOpenForm={setEditForm}
         />
       )}
     </>
